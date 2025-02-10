@@ -5,84 +5,211 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>わかばのアプリ工房</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
-    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap">
     <style>
-        .dark {
-            background-color: #1a202c;
-            color: #e2e8f0;
+        body {
+            font-family: 'Noto Serif JP', serif;
+        }
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 50%;
+            background-color: currentColor;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        .japanese-pattern {
+            background-color: #f8f8f8;
+            background-image: radial-gradient(#ddd 2px, transparent 2px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+        .header-offset {
+            padding-top: 5rem;
+        }
+        .hero-background {
+            background-image: url('Assets/backGround.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .hero-overlay {
+            background: linear-gradient(to right, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.4) 100%);
+        }
+        .character-image {
+            position: absolute;
+            right: 5%;
+            bottom: -50px;
+            max-height: 90%;
+            z-index: 1;
+        }
+        @media (max-width: 768px) {
+            .character-image {
+                max-height: 50%;
+                right: 50%;
+                bottom: -30px;
+                transform: translateX(50%);
+                opacity: 0.3;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200 dark:from-gray-900 dark:to-indigo-900 flex flex-col items-center justify-center p-4 transition-colors duration-300">
-    <div id="app" class="w-full max-w-4xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-xl rounded-2xl overflow-hidden">
-        <div class="p-6 md:p-10">
-            <div class="flex justify-between items-center mb-8">
-                <h1 class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400">
-                    わかばのアプリ工房
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="fixed w-full bg-white z-50 border-b border-gray-200 top-0">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">
+                    <span data-lang="ja">わかばのアプリ工房</span>
+                    <span data-lang="en" class="hidden">Wakaba App Studio</span>
                 </h1>
+                <nav class="hidden md:flex space-x-8 text-gray-700">
+                    <a href="#apps" class="nav-link">
+                        <span data-lang="ja">アプリ</span>
+                        <span data-lang="en" class="hidden">Apps</span>
+                    </a>
+                    <a href="#news" class="nav-link">
+                        <span data-lang="ja">お知らせ</span>
+                        <span data-lang="en" class="hidden">News</span>
+                    </a>
+                    <a href="#contact" class="nav-link">
+                        <span data-lang="ja">コンタクト</span>
+                        <span data-lang="en" class="hidden">Contact</span>
+                    </a>
+                    <button onclick="toggleLanguage()" class="nav-link">
+                        <span data-lang="ja">EN</span>
+                        <span data-lang="en" class="hidden">JP</span>
+                    </button>
+                </nav>
             </div>
+        </div>
+    </header>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="space-y-6">
-                    <p class="text-lg text-gray-600 dark:text-gray-300">
-                        こんにちは！私は個人アプリ開発者のわかばです。使いやすいアプリを作ることが私の情熱です。
-                    </p>
-                    <div>
-                        <h2 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">私のアプリ</h2>
-                        <ul class="space-y-2">
-                            <li class="flex flex-col text-gray-700 dark:text-gray-200">
-                                <div class="flex items-center">
-                                    <span class="mr-2 text-indigo-600 dark:text-indigo-400">&#9679;</span>
-                                    Big5診断
-                                </div>
-                                <div class="flex space-x-4 mt-2">
-                                    <a href="https://play.google.com/store/apps/details?id=com.mycompany.big5" class="flex items-center">
-                                        <img src="https://play.google.com/intl/en_us/badges/images/generic/ja_badge_web_generic.png" alt="Google Playで手に入れよう" class="h-8">
-                                    </a>
-                                    <a href="https://apps.apple.com/app/id6730124046" class="flex items-center">
-                                        <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="App Storeからダウンロード" class="h-8">
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="flex flex-col text-gray-700 dark:text-gray-200">
-                                <div class="flex items-center">
-                                    <span class="mr-2 text-indigo-600 dark:text-indigo-400">&#9679;</span>
-                                    無駄なく生活
-                                </div>
-                                <div class="flex space-x-4 mt-2">
-                                    <a href="https://play.google.com/store/apps/details?id=com.your.orgname.life_without_waste" class="flex items-center">
-                                        <img src="https://play.google.com/intl/en_us/badges/images/generic/ja_badge_web_generic.png" alt="Google Playで手に入れよう" class="h-8">
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="flex space-x-4">
-                        
-                        <a href="https://x.com/WakabaCreate" class="border border-gray-300 rounded-md p-2 w-full flex items-center justify-center">
-                            <i data-feather="twitter" class="mr-2"></i>X (Twitter)
-                        </a>
-                        <a href="https://note.com/wakaba8896/" class="border border-gray-300 rounded-md p-2 w-full flex items-center justify-center">
-                            <i data-feather="file-text" class="mr-2"></i>NOTE
-                        </a>
-                    </div>
-                </div>
-                <div class="space-y-6">
-                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mt-8 md:mt-0">
-                        <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-100">お知らせ</h3>
-                        <p class="text-gray-600 dark:text-gray-300">
-                            新作アプリ「Big5診断」リリース中！
-                        </p>
-                    </div>
-                </div>
+    <!-- Hero Section -->
+    <div class="relative min-h-[600px] header-offset hero-background">
+        <div class="hero-overlay absolute inset-0"></div>
+        <img src="Assets/charactericon.png" alt="Wakaba Character" class="character-image">
+        <div class="relative container mx-auto px-4 h-full flex items-center py-20">
+            <div class="max-w-lg relative z-10">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">
+                    <span data-lang="ja">使いやすさを<br>デザインする</span>
+                    <span data-lang="en" class="hidden">Designing<br>Usability</span>
+                </h2>
+                <p class="text-lg text-gray-600">
+                    <span data-lang="ja">シンプルで美しいアプリケーションを<br>あなたの日常に</span>
+                    <span data-lang="en" class="hidden">Simple and beautiful applications<br>for your daily life</span>
+                </p>
             </div>
         </div>
     </div>
 
+    <!-- Apps Section -->
+    <section id="apps" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-16 text-center">
+                <span data-lang="ja">アプリケーション</span>
+                <span data-lang="en" class="hidden">Applications</span>
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <h3 class="text-2xl font-bold mb-4">Big5診断</h3>
+                    <p class="text-gray-600 mb-8">
+                        <span data-lang="ja">パーソナリティ分析を通じて、<br>自己理解を深めるためのアプリ</span>
+                        <span data-lang="en" class="hidden">An app to deepen self-understanding<br>through personality analysis</span>
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://play.google.com/store/apps/details?id=com.mycompany.big5">
+                            <img src="https://play.google.com/intl/en_us/badges/images/generic/ja_badge_web_generic.png" alt="Google Play" class="h-12">
+                        </a>
+                        <a href="https://apps.apple.com/app/id6730124046">
+                            <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="App Store" class="h-12">
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <h3 class="text-2xl font-bold mb-4">
+                        <span data-lang="ja">無駄なく生活</span>
+                        <span data-lang="en" class="hidden">Life Without Waste</span>
+                    </h3>
+                    <p class="text-gray-600 mb-8">
+                        <span data-lang="ja">日々の生活をより効率的に、<br>より豊かにするためのツール</span>
+                        <span data-lang="en" class="hidden">A tool to make your daily life<br>more efficient and enriching</span>
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://play.google.com/store/apps/details?id=com.your.orgname.life_without_waste">
+                            <img src="https://play.google.com/intl/en_us/badges/images/generic/ja_badge_web_generic.png" alt="Google Play" class="h-12">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-16 text-center">
+                <span data-lang="ja">お知らせ</span>
+                <span data-lang="en" class="hidden">News</span>
+            </h2>
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-sm">
+                <p class="text-gray-600">
+                    <span data-lang="ja">新作アプリ「Big5診断」リリース中！</span>
+                    <span data-lang="en" class="hidden">New app "Big5 Diagnosis" now available!</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-16 text-center">
+                <span data-lang="ja">コンタクト</span>
+                <span data-lang="en" class="hidden">Contact</span>
+            </h2>
+            <div class="max-w-md mx-auto flex justify-center space-x-8">
+                <a href="https://x.com/WakabaCreate" class="text-gray-600 hover:text-gray-900 transition-colors">
+                    <span class="block text-center mb-2">X (Twitter)</span>
+                </a>
+                <a href="https://note.com/wakaba8896/" class="text-gray-600 hover:text-gray-900 transition-colors">
+                    <span class="block text-center mb-2">NOTE</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            feather.replace();
+            // Initialize any required functionality here
         });
+
+        function toggleLanguage() {
+            const currentLang = document.documentElement.lang;
+            const newLang = currentLang === 'ja' ? 'en' : 'ja';
+            document.documentElement.lang = newLang;
+            
+            // Toggle visibility of language-specific elements
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                if (el.getAttribute('data-lang') === newLang) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+        }
     </script>
 </body>
 </html>
