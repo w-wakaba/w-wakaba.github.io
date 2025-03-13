@@ -5,75 +5,263 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>わかばのアプリ工房</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
+        :root {
+            --primary-color: #2E5E1B; /* より濃い若葉色 */
+            --secondary-color: #E09600; /* より濃い山吹色 */
+            --accent-color: #D12800; /* より濃い朱色 */
+            --text-color: #222222;
+            --light-bg: #F0F0F0;
+            --card-bg: #FFFFFF;
+        }
+        
         body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
             font-family: 'Noto Serif JP', serif;
         }
+        
         .nav-link {
             position: relative;
             text-decoration: none;
             padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            color: #444444;
         }
+        
         .nav-link::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 1px;
+            height: 2px;
             bottom: 0;
             left: 50%;
-            background-color: currentColor;
+            background-color: var(--primary-color);
             transition: all 0.3s ease;
             transform: translateX(-50%);
         }
+        
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+        
         .nav-link:hover::after {
             width: 80%;
         }
+        
         .japanese-pattern {
-            background-color: #f8f8f8;
-            background-image: radial-gradient(#ddd 2px, transparent 2px);
-            background-size: 30px 30px;
-            opacity: 0.3;
+            background-color: #E8E8E8;
+            background-image: 
+                linear-gradient(rgba(46, 94, 27, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(46, 94, 27, 0.2) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 1;
         }
+        
         .header-offset {
             padding-top: 5rem;
         }
+        
         .hero-background {
             background-image: url('Assets/backGround.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
+            min-height: 80vh;
         }
+        
         .hero-overlay {
-            background: linear-gradient(to right, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.4) 100%);
+            background: linear-gradient(to right, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.7) 100%);
+            backdrop-filter: blur(3px);
         }
+        
         .character-image {
             position: absolute;
             right: 5%;
             bottom: -50px;
             max-height: 90%;
             z-index: 1;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            transition: transform 0.5s ease;
         }
+        
+        .character-image:hover {
+            transform: translateY(-10px);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .app-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.1);
+            background: var(--card-bg);
+        }
+        
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-color: rgba(79, 121, 66, 0.2);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3d5e34;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 121, 66, 0.3);
+        }
+        
+        .news-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .news-card:hover {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #FFFFFF;
+            color: #333333;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,255,255,0.98);
+            z-index: 100;
+            padding: 2rem;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .mobile-nav-link {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            padding: 0.5rem 1rem;
+            position: relative;
+        }
+        
+        .mobile-nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .mobile-nav-link:hover::after {
+            width: 80%;
+        }
+        
         @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            
             .character-image {
                 max-height: 50%;
                 right: 50%;
                 bottom: -30px;
                 transform: translateX(50%);
-                opacity: 0.3;
+                opacity: 0.8;
+            }
+            
+            .hero-overlay {
+                background: linear-gradient(to bottom, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.9) 70%, rgba(255,255,255,0.8) 100%);
             }
         }
     </style>
 </head>
-<body class="min-h-screen bg-white">
+<body class="min-h-screen">
     <!-- Header -->
-    <header class="fixed w-full bg-white z-50 border-b border-gray-200 top-0">
+    <header class="fixed w-full bg-white z-50 shadow-sm top-0">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-bold">
-                    <span data-lang="ja">わかばのアプリ工房</span>
-                    <span data-lang="en" class="hidden">Wakaba App Studio</span>
+                <h1 class="text-2xl font-bold text-gray-800">
+                    <span data-lang="ja" class="flex items-center">
+                        <span class="text-green-800">わかば</span>のアプリ工房
+                    </span>
+                    <span data-lang="en" class="hidden flex items-center">
+                        <span class="text-green-800">Wakaba</span> App Studio
+                    </span>
                 </h1>
                 <nav class="hidden md:flex space-x-8 text-gray-700">
                     <a href="#apps" class="nav-link">
@@ -93,62 +281,107 @@
                         <span data-lang="en" class="hidden">JP</span>
                     </button>
                 </nav>
+                <div class="md:hidden">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-close" onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </div>
+        <nav class="flex flex-col items-center">
+            <a href="#apps" class="mobile-nav-link" onclick="toggleMobileMenu()">
+                <span data-lang="ja">アプリ</span>
+                <span data-lang="en" class="hidden">Apps</span>
+            </a>
+            <a href="#news" class="mobile-nav-link" onclick="toggleMobileMenu()">
+                <span data-lang="ja">お知らせ</span>
+                <span data-lang="en" class="hidden">News</span>
+            </a>
+            <a href="#contact" class="mobile-nav-link" onclick="toggleMobileMenu()">
+                <span data-lang="ja">コンタクト</span>
+                <span data-lang="en" class="hidden">Contact</span>
+            </a>
+            <button onclick="toggleLanguage()" class="mobile-nav-link">
+                <span data-lang="ja">EN</span>
+                <span data-lang="en" class="hidden">JP</span>
+            </button>
+        </nav>
+    </div>
+
     <!-- Hero Section -->
-    <div class="relative min-h-[600px] header-offset hero-background">
+    <div class="relative min-h-[80vh] header-offset hero-background">
         <div class="hero-overlay absolute inset-0"></div>
         <img src="Assets/charactericon.png" alt="Wakaba Character" class="character-image">
         <div class="relative container mx-auto px-4 h-full flex items-center py-20">
-            <div class="max-w-lg relative z-10">
-                <h2 class="text-3xl md:text-5xl font-bold mb-6">
-                    <span data-lang="ja">使いやすさを<br>デザインする</span>
-                    <span data-lang="en" class="hidden">Designing<br>Usability</span>
+            <div class="max-w-lg relative z-10" data-aos="fade-right" data-aos-duration="1000">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-gray-800">
+                    <span data-lang="ja">心地よさを<br><span class="text-green-800">カタチ</span>にする</span>
+                    <span data-lang="en" class="hidden"><span class="text-green-800">Shaping</span><br>Comfort</span>
                 </h2>
-                <p class="text-lg text-gray-600">
+                <p class="text-lg text-gray-700 mb-8">
                     <span data-lang="ja">シンプルで美しいアプリケーションを<br>あなたの日常に</span>
                     <span data-lang="en" class="hidden">Simple and beautiful applications<br>for your daily life</span>
                 </p>
+                <a href="#apps" class="btn-primary">
+                    <span data-lang="ja">アプリを見る</span>
+                    <span data-lang="en" class="hidden">View Apps</span>
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
             </div>
         </div>
     </div>
 
     <!-- Apps Section -->
-    <section id="apps" class="py-20">
+    <section id="apps" class="py-20 japanese-pattern">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-16 text-center">
+            <h2 class="text-3xl font-bold mb-16 text-center section-title">
                 <span data-lang="ja">アプリケーション</span>
                 <span data-lang="en" class="hidden">Applications</span>
             </h2>
             <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-                <div class="bg-white p-8 rounded-lg shadow-sm">
-                    <h3 class="text-2xl font-bold mb-4">Big5診断</h3>
-                    <p class="text-gray-600 mb-8">
+                <div class="app-card p-8" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-start mb-6">
+                        <div class="bg-green-200 rounded-full p-3 mr-4">
+                            <i class="fas fa-brain text-green-800 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">Big5診断</h3>
+                    </div>
+                    <p class="text-gray-800 mb-8">
                         <span data-lang="ja">パーソナリティ分析を通じて、<br>自己理解を深めるためのアプリ</span>
                         <span data-lang="en" class="hidden">An app to deepen self-understanding<br>through personality analysis</span>
                     </p>
                     <div class="flex space-x-4">
-                        <a href="https://play.google.com/store/apps/details?id=com.mycompany.big5">
+                        <a href="https://play.google.com/store/apps/details?id=com.mycompany.big5" class="transition-transform hover:scale-105">
                             <img src="https://play.google.com/intl/en_us/badges/images/generic/ja_badge_web_generic.png" alt="Google Play" class="h-12">
                         </a>
-                        <a href="https://apps.apple.com/app/id6730124046">
+                        <a href="https://apps.apple.com/app/id6730124046" class="transition-transform hover:scale-105">
                             <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="App Store" class="h-12">
                         </a>
                     </div>
                 </div>
-                <div class="bg-white p-8 rounded-lg shadow-sm">
-                    <h3 class="text-2xl font-bold mb-4">
-                        <span data-lang="ja">無駄なく生活</span>
-                        <span data-lang="en" class="hidden">Life Without Waste</span>
-                    </h3>
-                    <p class="text-gray-600 mb-8">
+                <div class="app-card p-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-start mb-6">
+                        <div class="bg-green-200 rounded-full p-3 mr-4">
+                            <i class="fas fa-leaf text-green-800 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">
+                            <span data-lang="ja">無駄なく生活</span>
+                            <span data-lang="en" class="hidden">Life Without Waste</span>
+                        </h3>
+                    </div>
+                    <p class="text-gray-800 mb-8">
                         <span data-lang="ja">日々の生活をより効率的に、<br>より豊かにするためのツール</span>
                         <span data-lang="en" class="hidden">A tool to make your daily life<br>more efficient and enriching</span>
                     </p>
                     <div class="flex space-x-4">
-                        <a href="https://play.google.com/store/apps/details?id=com.your.orgname.life_without_waste">
+                        <a href="https://play.google.com/store/apps/details?id=com.your.orgname.life_without_waste" class="transition-transform hover:scale-105">
                             <img src="https://play.google.com/intl/en_us/badges/images/generic/ja_badge_web_generic.png" alt="Google Play" class="h-12">
                         </a>
                     </div>
@@ -158,14 +391,20 @@
     </section>
 
     <!-- News Section -->
-    <section id="news" class="py-20 bg-gray-50">
+    <section id="news" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-16 text-center">
+            <h2 class="text-3xl font-bold mb-16 text-center section-title">
                 <span data-lang="ja">お知らせ</span>
                 <span data-lang="en" class="hidden">News</span>
             </h2>
-            <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-sm">
-                <p class="text-gray-600">
+            <div class="max-w-2xl mx-auto news-card p-8 bg-white" data-aos="fade-up">
+                <div class="flex items-center mb-4">
+                    <div class="bg-yellow-200 rounded-full p-2 mr-3">
+                        <i class="fas fa-bell text-yellow-600"></i>
+                    </div>
+                    <span class="text-sm text-gray-600">2023.10.15</span>
+                </div>
+                <p class="text-gray-800 font-medium">
                     <span data-lang="ja">新作アプリ「Big5診断」リリース中！</span>
                     <span data-lang="en" class="hidden">New app "Big5 Diagnosis" now available!</span>
                 </p>
@@ -174,26 +413,57 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20">
+    <section id="contact" class="py-20 japanese-pattern">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-16 text-center">
+            <h2 class="text-3xl font-bold mb-16 text-center section-title">
                 <span data-lang="ja">コンタクト</span>
                 <span data-lang="en" class="hidden">Contact</span>
             </h2>
-            <div class="max-w-md mx-auto flex justify-center space-x-8">
-                <a href="https://x.com/WakabaCreate" class="text-gray-600 hover:text-gray-900 transition-colors">
-                    <span class="block text-center mb-2">X (Twitter)</span>
+            <div class="max-w-md mx-auto flex justify-center space-x-8" data-aos="fade-up">
+                <a href="https://x.com/WakabaCreate" class="social-icon">
+                    <i class="fab fa-x-twitter"></i>
                 </a>
-                <a href="https://note.com/wakaba8896/" class="text-gray-600 hover:text-gray-900 transition-colors">
-                    <span class="block text-center mb-2">NOTE</span>
+                <a href="https://note.com/wakaba8896/" class="social-icon">
+                    <i class="fas fa-pen-to-square"></i>
                 </a>
+            </div>
+            <div class="text-center mt-10 text-gray-800 font-medium" data-aos="fade-up" data-aos-delay="100">
+                <p data-lang="ja">お問い合わせやご質問はSNSにてお気軽にどうぞ</p>
+                <p data-lang="en" class="hidden">Feel free to contact us on social media with any inquiries</p>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">
+                        <span data-lang="ja">わかばのアプリ工房</span>
+                        <span data-lang="en" class="hidden">Wakaba App Studio</span>
+                    </h3>
+                    <p class="text-gray-300 text-sm">
+                        <span data-lang="ja">シンプルで美しいアプリケーションを</span>
+                        <span data-lang="en" class="hidden">Simple and beautiful applications</span>
+                    </p>
+                </div>
+                <div>
+                    <p class="text-gray-300 text-sm">
+                        &copy; 2023 Wakaba App Studio. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize any required functionality here
+            // Initialize AOS animation library
+            AOS.init({
+                once: true
+            });
         });
 
         function toggleLanguage() {
@@ -209,6 +479,17 @@
                     el.classList.add('hidden');
                 }
             });
+        }
+        
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            if (mobileMenu.style.display === 'flex') {
+                mobileMenu.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            } else {
+                mobileMenu.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
         }
     </script>
 </body>
