@@ -1,0 +1,141 @@
+/*
+Theme Name: Wakaba App Studio
+Theme URI: https://wakaba-app-studio.com
+Author: Wakaba App Studio
+Author URI: https://wakaba-app-studio.com
+Description: A modern and clean WordPress theme for app developers
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: wakaba-app-studio
+*/
+
+/* Import Tailwind CSS */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css');
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap');
+
+/* Import Font Awesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+/* Import AOS Animation */
+@import url('https://unpkg.com/aos@next/dist/aos.css');
+
+:root {
+    --primary-color: #2E5E1B;
+    --secondary-color: #E09600;
+    --accent-color: #D12800;
+    --text-color: #222222;
+    --light-bg: #F0F0F0;
+    --card-bg: #FFFFFF;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--text-color);
+    background-color: var(--light-bg);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Serif JP', serif;
+}
+
+/* Navigation Styles */
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    color: #444444;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--primary-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link:hover::after {
+    width: 80%;
+}
+
+/* Hero Section */
+.hero-background {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    min-height: 80vh;
+}
+
+.hero-overlay {
+    background: linear-gradient(to right, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.7) 100%);
+    backdrop-filter: blur(3px);
+}
+
+/* Card Styles */
+.app-card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: var(--card-bg);
+}
+
+.app-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border-color: rgba(79, 121, 66, 0.2);
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: #3d5e34;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(79, 121, 66, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    
+    .character-image {
+        max-height: 50%;
+        right: 50%;
+        bottom: -30px;
+        transform: translateX(50%);
+        opacity: 0.8;
+    }
+    
+    .hero-overlay {
+        background: linear-gradient(to bottom, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.9) 70%, rgba(255,255,255,0.8) 100%);
+    }
+} 
